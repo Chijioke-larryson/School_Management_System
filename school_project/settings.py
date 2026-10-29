@@ -29,7 +29,7 @@ DEBUG =  os.environ.get("DEBUG", "True") == "False"
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-     "school-management-system-t3rb.onrender.com"
+     "school-management-system-t3rb.onrender.com",
     "on.render.com",
     "JustMe.com",
 
