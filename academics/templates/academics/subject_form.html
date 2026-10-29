@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ title }} | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="form-panel">
+    <p class="eyebrow">Academics</p>
+    <h1>{{ title }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Save subject</button>
+        <a class="button secondary-button" href="{% url 'academics:subject_list' %}">Cancel</a>
+    </form>
+</section>
+{% endblock %}

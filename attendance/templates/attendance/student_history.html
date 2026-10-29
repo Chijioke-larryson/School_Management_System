@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}Attendance history | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">Attendance history</p>
+    <h1>{{ student.first_name }} {{ student.last_name }}</h1>
+    <p>{{ student.admission_number }} · {{ student.school_class.name }}</p>
+    <a class="button secondary-button" href="{% url 'attendance:attendance_home' %}">Back to attendance</a>
+</section>
+
+<section class="feature-grid">
+    <article class="feature"><h2>{{ percentage }}%</h2><p>Attendance percentage</p></article>
+    <article class="feature"><h2>{{ attended_days }}</h2><p>Present or late days</p></article>
+    <article class="feature"><h2>{{ total_days }}</h2><p>Total recorded days</p></article>
+</section>
+
+{% if records %}
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Date</th><th>Status</th></tr></thead>
+            <tbody>
+                {% for record in records %}
+                    <tr><td>{{ record.date }}</td><td>{{ record.get_status_display }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>No attendance has been recorded for this student.</p>
+{% endif %}
+{% endblock %}

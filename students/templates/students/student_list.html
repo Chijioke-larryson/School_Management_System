@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}Students | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">People</p>
+    <h1>Students</h1>
+    <a class="button" href="{% url 'students:student_create' %}">Add student</a>
+</section>
+
+<form class="search-form" method="get">
+    <label for="student-search">Search by name or admission number</label>
+    <div>
+        <input id="student-search" type="search" name="q" value="{{ query }}" placeholder="e.g. S001 or Sam">
+        <button class="button" type="submit">Search</button>
+    </div>
+</form>
+
+{% if students %}
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Admission number</th><th>Name</th><th>Class</th><th>Gender</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.admission_number }}</td>
+                        <td>{{ student.first_name }} {{ student.last_name }}</td>
+                        <td>{{ student.school_class.name }}</td>
+                        <td>{{ student.get_gender_display }}</td>
+                        <td class="actions">
+                            <a href="{% url 'students:student_detail' student.id %}">View</a>
+                            <a href="{% url 'students:student_edit' student.id %}">Edit</a>
+                            <form method="post" action="{% url 'students:student_delete' student.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>No students matched your search.</p>
+{% endif %}
+{% endblock %}

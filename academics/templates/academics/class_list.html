@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}Classes | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">Academics</p>
+    <h1>Classes</h1>
+    <a class="button" href="{% url 'academics:class_create' %}">Add class</a>
+</section>
+
+{% if classes %}
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Name</th><th>Description</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for school_class in classes %}
+                    <tr>
+                        <td>{{ school_class.name }}</td>
+                        <td>{{ school_class.description|default:"-" }}</td>
+                        <td class="actions">
+                            <a href="{% url 'academics:class_edit' school_class.id %}">Edit</a>
+                            <form method="post" action="{% url 'academics:class_delete' school_class.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>No classes have been added yet.</p>
+{% endif %}
+{% endblock %}

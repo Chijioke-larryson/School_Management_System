@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}Enter results | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">{{ assignment.subject.name }} · {{ assignment.school_class.name }}</p>
+    <h1>Enter results</h1>
+    <a class="button secondary-button" href="{% url 'results:results_home' %}">Choose another subject</a>
+</section>
+
+<section class="form-panel form-panel-wide">
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {{ term_form.as_p }}
+        {{ formset.non_form_errors }}
+        {% if student_forms %}
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Student</th><th>Test / 40</th><th>Exam / 60</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for student, form in student_forms %}
+                            <tr>
+                                <td>
+                                    {{ student.first_name }} {{ student.last_name }}
+                                    <span class="muted">({{ student.admission_number }})</span>
+                                    {{ form.student_id }}
+                                </td>
+                                <td>{{ form.test_score }}{{ form.test_score.errors }}</td>
+                                <td>{{ form.exam_score }}{{ form.exam_score.errors }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <button class="button" type="submit">Save results</button>
+        {% else %}
+            <p>This class has no students yet.</p>
+        {% endif %}
+    </form>
+</section>
+
+{% if saved_results %}
+    <section class="page-heading compact-heading">
+        <p class="eyebrow">Saved records</p>
+        <h2>{{ assignment.subject.name }} results</h2>
+    </section>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Student</th><th>Test</th><th>Exam</th><th>Total</th><th>Grade</th></tr></thead>
+            <tbody>
+                {% for result in saved_results %}
+                    <tr>
+                        <td>{{ result.student }}</td>
+                        <td>{{ result.test_score }}</td>
+                        <td>{{ result.exam_score }}</td>
+                        <td>{{ result.total }}</td>
+                        <td>{{ result.grade }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+{% endblock %}

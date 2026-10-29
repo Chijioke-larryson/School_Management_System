@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}School Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="{% url 'accounts:home' %}">Greenfield School</a>
+            <nav aria-label="Main navigation">
+                <a href="{% url 'accounts:home' %}">Home</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+                    {% if user.is_superuser or user.profile.role == "admin" %}
+                        <a href="{% url 'admin:index' %}">Manage</a>
+                        <a href="{% url 'academics:class_list' %}">Classes</a>
+                        <a href="{% url 'academics:subject_list' %}">Subjects</a>
+                        <a href="{% url 'students:student_list' %}">Students</a>
+                        <a href="{% url 'teachers:teacher_list' %}">Teachers</a>
+                        <a href="{% url 'teachers:assignment_list' %}">Assignments</a>
+                    {% elif user.profile.role == "teacher" %}
+                        <a href="{% url 'accounts:dashboard' %}">My classes</a>
+                        <a href="{% url 'attendance:attendance_home' %}">Attendance</a>
+                        <a href="{% url 'results:results_home' %}">Results</a>
+                    {% elif user.profile.role == "student" %}
+                        <a href="{% url 'accounts:dashboard' %}">My records</a>
+                    {% endif %}
+                    <form class="logout-form" method="post" action="{% url 'accounts:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Log out</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}">Log in</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% if messages %}
+            <section class="messages" aria-label="Messages">
+                {% for message in messages %}
+                    <p class="message">{{ message }}</p>
+                {% endfor %}
+            </section>
+        {% endif %}
+
+        {% block body %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>Greenfield School Management System</p>
+        </div>
+    </footer>
+</body>
+</html>

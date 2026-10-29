@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}Home | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="hero">
+    <p class="eyebrow">School management system</p>
+    <h1>Welcome to Greenfield School</h1>
+    <p class="intro">A simple place to manage students, teachers, classes, attendance, and results.</p>
+    <a class="button" href="{% url 'admin:index' %}">Open admin area</a>
+</section>
+
+<section class="feature-grid" aria-label="System areas">
+    <article class="feature">
+        <h2>People</h2>
+        <p>Keep student and teacher information organized.</p>
+    </article>
+    <article class="feature">
+        <h2>Learning</h2>
+        <p>Manage classes, subjects, attendance, and results.</p>
+    </article>
+    <article class="feature">
+        <h2>Clear records</h2>
+        <p>Use one consistent system for everyday school work.</p>
+    </article>
+</section>
+{% endblock %}

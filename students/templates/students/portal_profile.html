@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}My profile | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">Student portal</p>
+    <h1>My profile</h1>
+</section>
+<div class="detail-grid">
+    <section class="feature">
+        <h2>School information</h2>
+        <dl>
+            <dt>Name</dt><dd>{{ student.first_name }} {{ student.last_name }}</dd>
+            <dt>Admission number</dt><dd>{{ student.admission_number }}</dd>
+            <dt>Class</dt><dd>{{ student.school_class.name }}</dd>
+            <dt>Date admitted</dt><dd>{{ student.date_admitted }}</dd>
+        </dl>
+    </section>
+    <section class="feature">
+        <h2>Personal information</h2>
+        <dl>
+            <dt>Date of birth</dt><dd>{{ student.date_of_birth }}</dd>
+            <dt>Gender</dt><dd>{{ student.get_gender_display }}</dd>
+            <dt>Guardian</dt><dd>{{ student.guardian_name }}</dd>
+            <dt>Guardian phone</dt><dd>{{ student.guardian_phone }}</dd>
+        </dl>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}Teaching assignments | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">Academics</p>
+    <h1>Teaching assignments</h1>
+    <a class="button" href="{% url 'teachers:assignment_create' %}">Add assignment</a>
+</section>
+
+{% if assignments %}
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Teacher</th><th>Subject</th><th>Class</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for assignment in assignments %}
+                    <tr>
+                        <td>{{ assignment.teacher.user.get_full_name }}</td>
+                        <td>{{ assignment.subject }}</td>
+                        <td>{{ assignment.school_class }}</td>
+                        <td class="actions">
+                            <a href="{% url 'teachers:assignment_edit' assignment.id %}">Edit</a>
+                            <form method="post" action="{% url 'teachers:assignment_delete' assignment.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>No teaching assignments have been added yet.</p>
+{% endif %}
+{% endblock %}

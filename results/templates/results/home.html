@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}Results | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">Teacher tools</p>
+    <h1>Results</h1>
+    <p>Choose an assigned subject and class to enter or edit scores.</p>
+</section>
+
+{% if assignments %}
+    <div class="feature-grid">
+        {% for assignment in assignments %}
+            <article class="feature">
+                <h2>{{ assignment.subject.name }}</h2>
+                <p>{{ assignment.school_class.name }}</p>
+                <a class="button" href="{% url 'results:enter_results' assignment.id %}">Enter results</a>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>You have no assigned subjects yet.</p>
+{% endif %}
+{% endblock %}

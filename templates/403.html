@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}Access denied | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="form-panel">
+    <p class="eyebrow">HTTP 403</p>
+    <h1>Access denied</h1>
+    <p>Your account does not have permission to view this page.</p>
+    <a class="button" href="{% url 'accounts:home' %}">Return home</a>
+</section>
+{% endblock %}

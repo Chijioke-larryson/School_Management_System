@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ school_class.name }} results report | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading report-heading">
+    <p class="eyebrow">Admin report</p>
+    <h1>{{ school_class.name }} results</h1>
+    <form class="search-form no-print" method="get">
+        <label for="term">Choose term</label>
+        <div>
+            <select id="term" name="term">
+                {% for value, label in term_choices %}
+                    <option value="{{ value }}"{% if value == term %} selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+            <button class="button" type="submit">View term</button>
+        </div>
+    </form>
+    <button class="button no-print" type="button" onclick="window.print()">Print report</button>
+</section>
+{% if results %}
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Student</th><th>Subject</th><th>Test</th><th>Exam</th><th>Total</th><th>Grade</th></tr></thead>
+            <tbody>
+                {% for result in results %}
+                    <tr><td>{{ result.student }}</td><td>{{ result.subject.name }}</td><td>{{ result.test_score }}</td><td>{{ result.exam_score }}</td><td>{{ result.total }}</td><td>{{ result.grade }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>No results are available for this class and term.</p>
+{% endif %}
+{% endblock %}

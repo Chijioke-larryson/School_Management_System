@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}Teacher dashboard | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="dashboard-header">
+    <p class="eyebrow">Teacher area</p>
+    <h1>Teacher dashboard</h1>
+    {% if request.session.welcome_name %}
+        <p class="welcome">Welcome, {{ request.session.welcome_name }}.</p>
+    {% endif %}
+    <p>Open an assigned class to take attendance or enter results.</p>
+</section>
+{% if assignments %}
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Class</th><th>Subject</th><th>Actions</th></tr></thead>
+            <tbody>
+                {% for assignment in assignments %}
+                    <tr>
+                        <td>{{ assignment.school_class.name }}</td>
+                        <td>{{ assignment.subject.name }}</td>
+                        <td class="actions">
+                            <a href="{% url 'attendance:mark_attendance' assignment.school_class.id %}">Attendance</a>
+                            <a href="{% url 'results:enter_results' assignment.id %}">Results</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>You have no teaching assignments yet.</p>
+{% endif %}
+{% endblock %}

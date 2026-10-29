@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ student }} | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">Student record</p>
+    <h1>{{ student.first_name }} {{ student.last_name }}</h1>
+    <a class="button" href="{% url 'students:student_edit' student.id %}">Edit student</a>
+    <a class="button secondary-button" href="{% url 'students:student_list' %}">Back to students</a>
+</section>
+
+<div class="detail-grid">
+    <section class="feature">
+        <h2>School information</h2>
+        <dl>
+            <dt>Admission number</dt><dd>{{ student.admission_number }}</dd>
+            <dt>Class</dt><dd>{{ student.school_class.name }}</dd>
+            <dt>Date admitted</dt><dd>{{ student.date_admitted }}</dd>
+            <dt>Login username</dt><dd>{{ student.user.username }}</dd>
+        </dl>
+    </section>
+    <section class="feature">
+        <h2>Personal information</h2>
+        <dl>
+            <dt>Date of birth</dt><dd>{{ student.date_of_birth }}</dd>
+            <dt>Gender</dt><dd>{{ student.get_gender_display }}</dd>
+            <dt>Guardian</dt><dd>{{ student.guardian_name }}</dd>
+            <dt>Guardian phone</dt><dd>{{ student.guardian_phone }}</dd>
+            <dt>Address</dt><dd>{{ student.address }}</dd>
+        </dl>
+    </section>
+</div>
+{% endblock %}

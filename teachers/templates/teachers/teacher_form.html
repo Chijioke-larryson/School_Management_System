@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ title }} | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="form-panel form-panel-wide">
+    <p class="eyebrow">People</p>
+    <h1>{{ title }}</h1>
+    {% if title == "Add teacher" %}
+        <p>The staff ID becomes the initial username and password.</p>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Save teacher</button>
+        <a class="button secondary-button" href="{% url 'teachers:teacher_list' %}">Cancel</a>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}Class reports | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">Admin reports</p>
+    <h1>Class reports</h1>
+    <p>Choose a class to view its result summary by term.</p>
+</section>
+{% if classes %}
+    <div class="feature-grid">
+        {% for school_class in classes %}
+            <article class="feature">
+                <h2>{{ school_class.name }}</h2>
+                <p>{{ school_class.students.count }} students</p>
+                <a class="button" href="{% url 'results:result_summary' school_class.id %}">View report</a>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No classes are available for reporting.</p>
+{% endif %}
+{% endblock %}

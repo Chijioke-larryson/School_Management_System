@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}Admin dashboard | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="dashboard-header">
+    <p class="eyebrow">Admin area</p>
+    <h1>Administrator dashboard</h1>
+    {% if request.session.welcome_name %}
+        <p class="welcome">Welcome, {{ request.session.welcome_name }}.</p>
+    {% endif %}
+    <p>Monitor the main school records from one place.</p>
+</section>
+<section class="feature-grid">
+    <article class="feature"><h2>{{ student_count }}</h2><p>Students</p><a href="{% url 'students:student_list' %}">View students</a></article>
+    <article class="feature"><h2>{{ teacher_count }}</h2><p>Teachers</p><a href="{% url 'teachers:teacher_list' %}">View teachers</a></article>
+    <article class="feature"><h2>{{ class_count }}</h2><p>Classes</p><a href="{% url 'academics:class_list' %}">View classes</a></article>
+    <article class="feature"><h2>{{ today_attendance_count }}</h2><p>Attendance records today</p><a href="{% url 'admin:index' %}">Open admin</a></article>
+    <article class="feature"><h2>Reports</h2><p>Class and result summaries</p><a href="{% url 'results:class_report' %}">Open reports</a></article>
+</section>
+{% endblock %}

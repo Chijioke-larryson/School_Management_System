@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}Student dashboard | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="dashboard-header">
+    <p class="eyebrow">Student area</p>
+    <h1>Student dashboard</h1>
+    {% if request.session.welcome_name %}
+        <p class="welcome">Welcome, {{ request.session.welcome_name }}.</p>
+    {% endif %}
+    <p>Your records are private to your account.</p>
+</section>
+<section class="feature-grid">
+    <article class="feature"><h2>{{ attendance_percentage }}%</h2><p>Attendance percentage</p><a href="{% url 'students:portal_attendance' %}">View attendance</a></article>
+    <article class="feature"><h2>{{ student.school_class.name }}</h2><p>Current class</p><a href="{% url 'students:portal_profile' %}">View profile</a></article>
+    <article class="feature"><h2>{{ latest_results|length }}</h2><p>Latest results</p><a href="{% url 'students:portal_results' %}">View results</a></article>
+</section>
+{% endblock %}

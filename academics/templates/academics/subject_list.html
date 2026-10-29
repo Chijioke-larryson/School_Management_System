@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}Subjects | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">Academics</p>
+    <h1>Subjects</h1>
+    <a class="button" href="{% url 'academics:subject_create' %}">Add subject</a>
+</section>
+
+{% if subjects %}
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Code</th><th>Name</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                    <tr>
+                        <td>{{ subject.code }}</td>
+                        <td>{{ subject.name }}</td>
+                        <td class="actions">
+                            <a href="{% url 'academics:subject_edit' subject.id %}">Edit</a>
+                            <form method="post" action="{% url 'academics:subject_delete' subject.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>No subjects have been added yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}Mark attendance | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">{{ school_class.name }}</p>
+    <h1>Mark attendance</h1>
+    <a class="button secondary-button" href="{% url 'attendance:attendance_home' %}">Choose another class</a>
+</section>
+
+<section class="form-panel form-panel-wide">
+    {% if error_message %}
+        <p class="form-error">{{ error_message }}</p>
+    {% endif %}
+    {{ date_form.non_field_errors }}
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {{ date_form.as_p }}
+        {% if student_forms %}
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Student</th><th>Status</th><th>History</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for student, form in student_forms %}
+                            <tr>
+                                <td>
+                                    {{ student.first_name }} {{ student.last_name }}
+                                    <span class="muted">({{ student.admission_number }})</span>
+                                    {{ form.student_id }}
+                                </td>
+                                <td>{{ form.status }}{{ form.status.errors }}</td>
+                                <td><a href="{% url 'attendance:student_history' student.id %}">View history</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <button class="button" type="submit">Save attendance</button>
+        {% else %}
+            <p>This class has no students yet.</p>
+        {% endif %}
+    </form>
+</section>
+{% endblock %}

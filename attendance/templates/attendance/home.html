@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}Attendance | Greenfield School{% endblock %}
+
+{% block body %}
+<section class="page-heading">
+    <p class="eyebrow">Teacher tools</p>
+    <h1>Attendance</h1>
+    <p>Choose one of your assigned classes to mark today’s attendance.</p>
+</section>
+
+{% if classes %}
+    <div class="feature-grid">
+        {% for school_class in classes %}
+            <article class="feature">
+                <h2>{{ school_class.name }}</h2>
+                <p>{{ school_class.students.count }} students</p>
+                <a class="button" href="{% url 'attendance:mark_attendance' school_class.id %}">Mark attendance</a>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>You have no assigned classes yet.</p>
+{% endif %}
+{% endblock %}
