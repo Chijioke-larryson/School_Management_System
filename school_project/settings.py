@@ -20,20 +20,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("h%3^w5f5)40szae5+6qlyikhbu$$8#7dr#aub#kv38l(57vefh")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =  os.environ.get("DEBUG", "True") == "True"
+DEBUG =  os.environ.get("DEBUG", "True") == "False"
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
+     "school-management-system-t3rb.onrender.com"
     "on.render.com",
     "JustMe.com",
 
 ]
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://school-management-system-t3rb.onrender.com",
+]
 
 # Application definition
 
