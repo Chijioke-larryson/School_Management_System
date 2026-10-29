@@ -35,9 +35,8 @@ ALLOWED_HOSTS = [
 
 ]
 CSRF_TRUSTED_ORIGINS = [
-    "https://school-management-system-t3rb.onrender.com",
+    "https://school-management-system-9dlv.onrender.com",
 ]
-
 # Application definition
 
 INSTALLED_APPS = [
