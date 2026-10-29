@@ -1,9 +1,8 @@
 # Created by venv; see https://docs.python.org/3/library/venv.html
-*.venv/
-venv
-db.sqlite3
-*.sqlite3
-staticfiles/
-.env
+venv/
+.venv/
 __pycache__/
 *.pyc
+.env
+db.sqlite3
+staticfiles/
